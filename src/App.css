@@ -3,7 +3,7 @@ body{
   height: 100%;
   background-color: rgb(250, 250, 250);
 }
-.Costumer{
+.Costumer,.searchTable{
   background: rgb(255, 255, 255);
   position: relative;
   height: 300px;
