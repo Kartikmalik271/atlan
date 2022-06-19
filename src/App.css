@@ -31,3 +31,8 @@ body{
 .sql-form textarea{
   border: 2px solid gainsboro;
 }
+.NavBar{
+  background-color: #08415c;
+  color: whitesmoke;
+  
+}

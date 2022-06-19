@@ -1,32 +1,46 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
+import { Route,Routes } from 'react-router-dom';
 import { csv } from 'd3';
 import datacsv from './samplecsv.csv'
 import './App.css';
 import Customer from './components/customer';
+import Category from './components/category';
 import Nav from './components/nav';
+import Territory from './components/territory';
+import Supply from './components/supply';
 function App() {
   
   const [record,setRecord]=useState([]);
- 
+  const [recordcategory,setRecordcategory]=useState([])
+  const [territories,setTerritories]=useState([]);
+  const [suppliers,setSuppliers]=useState([]);
   useEffect(()=>{
     csv(datacsv).then(record=>{
       setRecord(record);
     });
-  },[]);  
-  
-    
+    csv('https://raw.githubusercontent.com/graphql-compose/graphql-compose-examples/master/examples/northwind/data/csv/categories.csv').then(item=>{
+      setRecordcategory(item)
+    });
+    csv('https://raw.githubusercontent.com/graphql-compose/graphql-compose-examples/master/examples/northwind/data/csv/territories.csv').then(ter=>{
+      setTerritories(ter)
+    });
+    csv('https://raw.githubusercontent.com/graphql-compose/graphql-compose-examples/master/examples/northwind/data/csv/suppliers.csv').then(supply=>{
+      setSuppliers(supply)
+    });
+  },[]);
+
   return (
     <div className="App">
-      <div className='NavBar col-12 px-0 py-10px'>
-        
-            
-      </div>
-      <BrowserRouter>
-        <Routes>
-            <Route path="/" exact={true} element={<Customer record={record}/>} />
-        </Routes>
-</BrowserRouter>
+    <Nav/>
+    <Routes>
+      <Route path="/" element={<Customer record={record}/>} />
+      <Route path="supplier" element={<Supply record={suppliers}/>} />
+      <Route path="category" element={ <Category record={recordcategory}/>} />
+      <Route path="territory" element={ <Territory record={territories}/> } />
+    </Routes>
+
+      
+     
             
     </div>
   );

@@ -4,7 +4,7 @@ import "toastify-js/src/toastify.css";
 import CsvDownloader from 'react-csv-downloader';
 
 
-const Customer = (props) => {
+const Territory = (props) => {
 
     const [name,setName]=useState("");
     const [queryName,setQueryName]=useState(["OPPS!!!!!!!!!! NO QUERY RAN"]);
@@ -19,17 +19,17 @@ const Customer = (props) => {
         setQueryName([])
         if (name[7]==='N' && name[10]==='E'){   
           props.record.map((i)=>
-            setQueryName(prevArray => [...prevArray, i.NAME])
+            setQueryName(prevArray => [...prevArray, i.territoryDescription])
           )
           setQueryRole([])
         }
-        if (name[7]==='R' && name[10]==='E') {
+        if (name[7]==='T' && name[18]==='D') {
           props.record.map((i)=>
-            setQueryRole  (prevArray => [...prevArray, i.ROLE])
+            setQueryRole  (prevArray => [...prevArray, i.territoryID])
           )
           setQueryName([])
         }
-        if ((name[7]!=='N' && name[7]!=='R' && name[10]!=='E') || (name[7]==='N' && name[10]!=='E') || (name[7] ==='R' && name[10]!=='E')){  
+        if ((name[7]!=='N' && name[8]!=='T' && name[10]!=='E' && name[18]!=='D') || (name[7]==='N' && name[10]!=='E') || (name[7] ==='T' && name[18]!=='D')){  
           //alert message
           Toastify({
             text: "INVALID RESPONSE",
@@ -44,7 +44,8 @@ const Customer = (props) => {
           }).showToast();
         } 
       }
-  
+     
+
     return ( 
         <div className='col-12 mt-5'>
 {/* section for original table */}
@@ -53,17 +54,17 @@ const Customer = (props) => {
               <table class="table  ">
                 <thead className='table-primary'>
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">TERRITORY_ID</th>
                     <th scope="col">NAME</th>
-                    <th scope="col">ROLE</th>
+                    <th scope="col">REGION_ID</th>
                   </tr>
                 </thead>
                 <tbody>
                   { props.record.map((item)=>
                     <tr>
-                      <th scope="row">{item.Sr}</th>
-                      <td>{item.NAME}</td>
-                      <td>{item.ROLE}</td>
+                      <th scope="row">{item.territoryID}</th>
+                      <td>{item.territoryDescription}</td>
+                      <td>{item.regionID}</td>
                     </tr>
                     )
                   }   
@@ -180,8 +181,7 @@ const Customer = (props) => {
             </div>
             
           </div>
-
      );
 }
  
-export default Customer;
+export default Territory;

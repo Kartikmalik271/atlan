@@ -4,7 +4,7 @@ import "toastify-js/src/toastify.css";
 import CsvDownloader from 'react-csv-downloader';
 
 
-const Customer = (props) => {
+const Supply = (props) => {
 
     const [name,setName]=useState("");
     const [queryName,setQueryName]=useState(["OPPS!!!!!!!!!! NO QUERY RAN"]);
@@ -17,19 +17,19 @@ const Customer = (props) => {
 
         e.preventDefault();
         setQueryName([])
-        if (name[7]==='N' && name[10]==='E'){   
+        if (name[7]==='C' && name[18]==='E'){   
           props.record.map((i)=>
-            setQueryName(prevArray => [...prevArray, i.NAME])
+            setQueryName(prevArray => [...prevArray, i.companyName])
           )
           setQueryRole([])
         }
-        if (name[7]==='R' && name[10]==='E') {
+        if (name[7]==='C' && name[13]==='T') {
           props.record.map((i)=>
-            setQueryRole  (prevArray => [...prevArray, i.ROLE])
+            setQueryRole  (prevArray => [...prevArray, i.contactName])
           )
           setQueryName([])
         }
-        if ((name[7]!=='N' && name[7]!=='R' && name[10]!=='E') || (name[7]==='N' && name[10]!=='E') || (name[7] ==='R' && name[10]!=='E')){  
+        if ((name[7]!=='C' && name[13]!=='T' && name[18]!=='E') || (name[7]==='C' && name[18]!=='E') || (name[7] ==='C' && name[13]!=='T')){  
           //alert message
           Toastify({
             text: "INVALID RESPONSE",
@@ -44,7 +44,8 @@ const Customer = (props) => {
           }).showToast();
         } 
       }
-  
+     
+
     return ( 
         <div className='col-12 mt-5'>
 {/* section for original table */}
@@ -53,17 +54,19 @@ const Customer = (props) => {
               <table class="table  ">
                 <thead className='table-primary'>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">NAME</th>
-                    <th scope="col">ROLE</th>
+                    <th scope="col">SUPPLIER_ID</th>
+                    <th scope="col">COMPANY_NAME</th>
+                    <th scope="col">CONTACT</th>
+                    <th scope="col">ADDRESS</th>
                   </tr>
                 </thead>
                 <tbody>
                   { props.record.map((item)=>
                     <tr>
-                      <th scope="row">{item.Sr}</th>
-                      <td>{item.NAME}</td>
-                      <td>{item.ROLE}</td>
+                      <th scope="row">{item.supplierID}</th>
+                      <td>{item.companyName}</td>
+                      <td>{item.contactName}</td>
+                      <td>{item.address}</td>
                     </tr>
                     )
                   }   
@@ -72,7 +75,7 @@ const Customer = (props) => {
             </div>
             <div className='main-option col-4 pl-5 mt-5'>
                 <button className='btn btn-info col-6 ml-5 mt-5 disabled'>ROWS: {props.record.length}</button>
-                <button className='btn btn-info col-6 ml-5 mt-2 disabled'>COLS: 3</button>
+                <button className='btn btn-info col-6 ml-5 mt-2 disabled'>COLS: 4</button>
                 <CsvDownloader className='btn btn-danger col-6 ml-5 mt-2 '
                       datas={props.record} 
                       filename="myfile"
@@ -90,7 +93,7 @@ const Customer = (props) => {
                     
                       <textarea
                         type="text"
-                        placeholder='SELECT NAME/ROLE FROM CUSTOMER'
+                        placeholder='SELECT COMPANY_NAME FROM CUSTOMER'
                         cols={60}
                         rows={6}
                         value={name}
@@ -180,8 +183,7 @@ const Customer = (props) => {
             </div>
             
           </div>
-
      );
 }
  
-export default Customer;
+export default Supply;
