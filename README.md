@@ -15,7 +15,7 @@ A REACT Application that takes SQL queries as input, processes it and exhibits t
 - D3
 - REACT-CSV-DOWNLOADER
 
-## DEMO
+## 🚀DEMO
 
 Try out: [SQL Query Runner](https://atlan-rose.vercel.app/)
 
