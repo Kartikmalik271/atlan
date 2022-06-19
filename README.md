@@ -30,4 +30,4 @@ Try out: [SQL Query Runner](https://atlan-rose.vercel.app/)
  
  - verification link  ->[LINK](https://www.browserstack.com/speedlab/report/94f607cd5342114bde0eb1aa867c5eace7315dbd)
 
-![RESULT SCREENSHOT](src/assets/pageload.png)
+![RESULT SCREENSHOT](src/assets/pageloadtime.png)
