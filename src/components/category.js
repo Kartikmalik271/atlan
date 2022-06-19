@@ -6,8 +6,9 @@ import CsvDownloader from 'react-csv-downloader';
 
 const Category = (props) => {
 
+  //hooks
     const [name,setName]=useState("");
-    const [queryName,setQueryName]=useState(["OPPS!!!!!!!!!! NO QUERY RAN"]);
+    const [queryName,setQueryName]=useState(["OPPS!!!!!!!!!! NO QUERY TO RUN"]);
     const [queryRole,setQueryRole]=useState([]); 
             
     
@@ -17,19 +18,43 @@ const Category = (props) => {
 
         e.preventDefault();
         setQueryName([])
+
         if (name[7]==='N' && name[10]==='E'){   
           props.record.map((i)=>
             setQueryName(prevArray => [...prevArray, i.categoryName])
           )
           setQueryRole([])
+          Toastify({
+            text: "RUN SUCCESSUFLLY",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "linear-gradient(to right, #008080,#00b295)",
+            }
+          }).showToast();
         }
+
         if (name[7]==='D' && name[17]==='N') {
           props.record.map((i)=>
             setQueryRole  (prevArray => [...prevArray, i.description])
           )
           setQueryName([])
+          Toastify({
+            text: "RUN SUCCESSUFLLY",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "linear-gradient(to right, #008080,#00b295)",
+            }
+          }).showToast();
         }
-        if ((name[7]!=='N' && name[17]!=='D' && name[10]!=='E' && name[17]!=='N') || (name[7]==='N' && name[10]!=='E') || (name[7] ==='D' && name[17    ]!=='N')){  
+        if ((name[7]!=='N' && name[7]!=='D') || (name[7]==='N' && name[10]!=='E') || (name[7] ==='D' && name[17]!=='N')){  
           //alert message
           Toastify({
             text: "INVALID RESPONSE",
@@ -50,7 +75,7 @@ const Category = (props) => {
         <div className='col-12 mt-5'>
 {/* section for original table */}
           <div className="row justify-content-center">
-            <div className='Costumer col-7 px-0 mx-0'>
+            <div className='Costumer col-11 col-lg-7 px-0 mx-0'>
               <table class="table  ">
                 <thead className='table-primary'>
                   <tr>
@@ -71,10 +96,11 @@ const Category = (props) => {
                 </tbody>
               </table>
             </div>
-            <div className='main-option col-4 pl-5 mt-5'>
-                <button className='btn btn-info col-6 ml-5 mt-5 disabled'>ROWS: {props.record.length}</button>
-                <button className='btn btn-info col-6 ml-5 mt-2 disabled'>COLS: 3</button>
-                <CsvDownloader className='btn btn-danger col-6 ml-5 mt-2 '
+            <div className='main-option col-12 col-lg-4 pl-lg-5 mt-5'>
+            <button className='btn btn-info col-12 col-lg-6 ml-lg-5 mt-3 disabled'>CATEGORY TABLE</button>
+                <button className='btn btn-info col-12 col-lg-6 ml-lg-5 mt-2 disabled'>ROWS: {props.record.length}</button>
+                <button className='btn btn-info col-12 col-lg-6 ml-lg-5 mt-2 disabled'>COLS: 3</button>
+                <CsvDownloader className='btn btn-danger col-12 col-lg-6 ml-lg-5 mt-2 '
                       datas={props.record} 
                       filename="myfile"
                       extension=".csv"
@@ -84,15 +110,16 @@ const Category = (props) => {
                 
             </div>
           </div>
+{/*SQL editor box  */}
           <div className='sqlQuery col-12 mt-4'>
             <div className='row justify-content-center'>
-                <div className='sql-form col-5 px-0 mt-5 '>
+                <div className='sql-form col-10 col-lg-5 px-0 mt-5 '>
+                  <h4 style={{textDecoration:"underline"}}>QUERY EDITOR</h4>
                   <form onSubmit={handleSubmit}>
                     
-                      <textarea
+                      <textarea className='col-11'
                         type="text"
-                        placeholder='SELECT NAME/ROLE FROM CUSTOMER'
-                        cols={60}
+                        placeholder='SELECT NAME/DESCRIPTION FROM CUSTOMER'
                         rows={6}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -100,14 +127,13 @@ const Category = (props) => {
                   
                     <button className='btn btn-danger col-5' type="submit" >RUN</button>
                   </form>
-                  
                 </div>
+{/* QUERY TABLE SECTION */}
+              <div className='searchTable col-11 col-lg-5 px-0'>
+                    {/* conditonal rendering */}
 
-              <div className='searchTable col-5 px-0'>
-
-{/* conditonal rendering */}
                     { queryName.length > 0 && 
-                        (<table class="table table-striped ">
+                        (<table class="table">
                           <thead className='table-warning'>
                             <tr>
                               
@@ -161,7 +187,7 @@ const Category = (props) => {
                           extension=".csv"
                           separator=" "
                           
-                          text="DOWNLOAD"
+                          text="DOWNLOAD RESULT"
                         />
                         ||
                         queryRole.length >0 &&
@@ -172,7 +198,7 @@ const Category = (props) => {
                           extension=".csv"
                           separator=" "
                           
-                          text="DOWNLOAD"
+                          text="DOWNLOAD RESULT"
                         />
 
                     }

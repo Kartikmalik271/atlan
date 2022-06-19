@@ -6,8 +6,9 @@ import CsvDownloader from 'react-csv-downloader';
 
 const Supply = (props) => {
 
+//hooks
     const [name,setName]=useState("");
-    const [queryName,setQueryName]=useState(["OPPS!!!!!!!!!! NO QUERY RAN"]);
+    const [queryName,setQueryName]=useState(["OPPS!!!!!!!!!! NO QUERY TO RAN"]);
     const [queryRole,setQueryRole]=useState([]); 
             
     
@@ -17,19 +18,44 @@ const Supply = (props) => {
 
         e.preventDefault();
         setQueryName([])
+
         if (name[7]==='C' && name[18]==='E'){   
           props.record.map((i)=>
             setQueryName(prevArray => [...prevArray, i.companyName])
           )
           setQueryRole([])
+          Toastify({
+            text: "RUN SUCCESSUFLLY",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "linear-gradient(to right, #008080,#00b295)",
+            }
+          }).showToast();
         }
-        if (name[7]==='C' && name[13]==='T') {
+        
+        if (name[7]==='E' && name[14]==='E') {
           props.record.map((i)=>
             setQueryRole  (prevArray => [...prevArray, i.contactName])
           )
           setQueryName([])
+          Toastify({
+            text: "RUN SUCCESSUFLLY",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "linear-gradient(to right, #008080,#00b295)",
+            }
+          }).showToast();
+        
         }
-        if ((name[7]!=='C' && name[13]!=='T' && name[18]!=='E') || (name[7]==='C' && name[18]!=='E') || (name[7] ==='C' && name[13]!=='T')){  
+        if ((name[7]!=='C'  && name[7]!=='E') || (name[7]==='C' && name[18]!=='E') || (name[7] ==='E' && name[14]!=='E')){  
           //alert message
           Toastify({
             text: "INVALID RESPONSE",
@@ -45,18 +71,17 @@ const Supply = (props) => {
         } 
       }
      
-
     return ( 
         <div className='col-12 mt-5'>
 {/* section for original table */}
           <div className="row justify-content-center">
-            <div className='Costumer col-7 px-0 mx-0'>
+            <div className='Costumer col-11 col-lg-7 px-0 mx-0'>
               <table class="table  ">
                 <thead className='table-primary'>
                   <tr>
                     <th scope="col">SUPPLIER_ID</th>
                     <th scope="col">COMPANY_NAME</th>
-                    <th scope="col">CONTACT</th>
+                    <th scope="col">EMPLOYEE</th>
                     <th scope="col">ADDRESS</th>
                   </tr>
                 </thead>
@@ -73,10 +98,11 @@ const Supply = (props) => {
                 </tbody>
               </table>
             </div>
-            <div className='main-option col-4 pl-5 mt-5'>
-                <button className='btn btn-info col-6 ml-5 mt-5 disabled'>ROWS: {props.record.length}</button>
-                <button className='btn btn-info col-6 ml-5 mt-2 disabled'>COLS: 4</button>
-                <CsvDownloader className='btn btn-danger col-6 ml-5 mt-2 '
+            <div className='main-option col-12 col-lg-4 pl-lg-5 mt-5'>
+                <button className='btn btn-info col-12 col-lg-6 ml-lg-5 mt-3 disabled'>SUPPLIER TABLE</button>
+                <button className='btn btn-info col-12 col-lg-6 ml-lg-5 mt-2 disabled'>ROWS: {props.record.length}</button>
+                <button className='btn btn-info col-12 col-lg-6 ml-lg-5 mt-2 disabled'>COLS: 4</button>
+                <CsvDownloader className='btn btn-danger col-12 col-lg-6 ml-lg-5 mt-2 '
                       datas={props.record} 
                       filename="myfile"
                       extension=".csv"
@@ -86,30 +112,29 @@ const Supply = (props) => {
                 
             </div>
           </div>
+{/*SQL editor box  */}
           <div className='sqlQuery col-12 mt-4'>
             <div className='row justify-content-center'>
-                <div className='sql-form col-5 px-0 mt-5 '>
+                <div className='sql-form col-10 col-lg-5 px-0 mt-5 '>
+                <h4 style={{textDecoration:"underline"}}>QUERY EDITOR</h4>
                   <form onSubmit={handleSubmit}>
-                    
-                      <textarea
+                      <textarea className='col-11'
                         type="text"
-                        placeholder='SELECT COMPANY_NAME FROM CUSTOMER'
-                        cols={60}
+                        placeholder='SELECT COMPANY_NAME FROM SUPPLIER'
                         rows={6}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                       />
                   
                     <button className='btn btn-danger col-5' type="submit" >RUN</button>
-                  </form>
-                  
+                  </form>                
                 </div>
 
-              <div className='searchTable col-5 px-0'>
-
-{/* conditonal rendering */}
+{/* QUERY TABLE SECTION */}
+              <div className='searchTable col-11 col-lg-5 px-0'>
+                    {/* conditonal rendering */}
                     { queryName.length > 0 && 
-                        (<table class="table table-striped ">
+                        (<table class="table  ">
                           <thead className='table-warning'>
                             <tr>
                               
@@ -132,7 +157,7 @@ const Supply = (props) => {
 
                     ||
                     (queryRole.length > 0 && 
-                        <table class="table table-striped ">
+                        <table class="table ">
                           <thead className='table-warning'>
                             <tr>
                               
@@ -163,7 +188,7 @@ const Supply = (props) => {
                           extension=".csv"
                           separator=" "
                           
-                          text="DOWNLOAD"
+                          text="DOWNLOAD RESULT"
                         />
                         ||
                         queryRole.length >0 &&
@@ -174,7 +199,7 @@ const Supply = (props) => {
                           extension=".csv"
                           separator=" "
                           
-                          text="DOWNLOAD"
+                          text="DOWNLOAD RESULT"
                         />
 
                     }
