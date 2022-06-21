@@ -71,6 +71,43 @@ const Territory = (props) => {
         } 
       }
      
+      const handleNamequery=()=>{
+        setQueryName([])
+        props.record.map((i)=>
+            setQueryName(prevArray => [...prevArray, i.territoryDescription])
+          )
+          setQueryRole([])
+          Toastify({
+            text: "RUN SUCCESSUFLLY",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "linear-gradient(to right, #008080,#00b295)",
+            }
+          }).showToast();
+      }
+
+      const handleRolequery=()=>{
+        
+        props.record.map((i)=>
+            setQueryRole  (prevArray => [...prevArray, i.territoryID])
+          )
+          setQueryName([])
+          Toastify({
+            text: "RUN SUCCESSUFLLY",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "linear-gradient(to right, #008080,#00b295)",
+            }
+          }).showToast();
+      }
 
     return ( 
         <div className='col-12 mt-5'>
@@ -127,14 +164,16 @@ const Territory = (props) => {
                   
                     <button className='btn btn-danger col-5' type="submit" >RUN</button>
                   </form>
-                  
+                  <p className='col-12 mt-3'style={{color:'grey'}}>or select default queries from below</p>
+                  <button className='btn btn-info col-10 ' onClick={handleNamequery} >SELECT NAME </button>
+                  <button className='btn btn-info col-10 mt-2' onClick={handleRolequery} >SELECT TERRITORY_ID </button>
                 </div>
 {/* QUERY TABLE SECTION */}
               <div className='searchTable col-11 col-lg-5 px-0'>
                   {/* conditonal rendering */}
 
                     { queryName.length > 0 && 
-                        (<table class="table table-striped ">
+                        (<table class="table  ">
                           <thead className='table-warning'>
                             <tr>
                               

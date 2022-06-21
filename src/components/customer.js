@@ -8,12 +8,13 @@ const Customer = (props) => {
 
 //hooks
     const [name,setName]=useState("");
-    const [queryName,setQueryName]=useState(["OPPS!!!!!!!!!! NO QUERY TO RAN"]);
+    const [queryName,setQueryName]=useState(["OPPS!!!!!!!!!! NO QUERY TO RUN"]);
     const [queryRole,setQueryRole]=useState([]); 
             
     
     
 //handle submit btn of query form
+    
     const handleSubmit = (e) => {
 
         e.preventDefault();
@@ -70,6 +71,47 @@ const Customer = (props) => {
           }).showToast();
         } 
       }
+
+      const handleNamequery=()=>{
+       
+        setQueryName([])
+        props.record.map((i)=>
+            setQueryName(prevArray => [...prevArray, i.NAME])
+          )
+       
+          setQueryRole([])
+          Toastify({
+            text: "RUN SUCCESSUFLLY",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "linear-gradient(to right, #008080,#00b295)",
+            }
+          }).showToast();
+    }
+
+    const handleRolequery=()=>{
+      
+      props.record.map((i)=>
+          setQueryRole(prevArray => [...prevArray, i.ROLE])
+        )
+      
+        setQueryName([])
+        Toastify({
+          text: "RUN SUCCESSUFLLY",
+          duration: 3000,
+          close: true,
+          gravity: "top", 
+          position: "center", 
+          stopOnFocus: true, 
+          style: {
+            background: "linear-gradient(to right, #008080,#00b295)",
+          }
+        }).showToast();
+  }
   
     return ( 
         <div className='col-12 mt-5'>
@@ -124,7 +166,12 @@ const Customer = (props) => {
                         onChange={(e) => setName(e.target.value)}
                       />
                     <button className='btn btn-danger col-5' type="submit" >RUN</button>
+                    
+
                   </form> 
+                  <p className='col-12 mt-3'style={{color:'grey'}}>or select default queries from below</p>
+                  <button className='btn btn-info col-10 ' onClick={handleNamequery} >SELECT NAME </button>
+                  <button className='btn btn-info col-10 mt-2' onClick={handleRolequery} >SELECT ROLE </button>
                 </div>
 {/* QUERY TABLE SECTION */}
               <div className='searchTable col-11 col-lg-5 px-0'>
@@ -150,7 +197,7 @@ const Customer = (props) => {
 
                     ||
                       (queryRole.length > 0 && 
-                        <table class="table table-striped ">
+                        <table class="table ">
                           <thead className='table-warning'>
                             <tr>
                               <th scope="col">QUERY RESULT</th>

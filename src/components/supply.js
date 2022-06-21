@@ -8,7 +8,7 @@ const Supply = (props) => {
 
 //hooks
     const [name,setName]=useState("");
-    const [queryName,setQueryName]=useState(["OPPS!!!!!!!!!! NO QUERY TO RAN"]);
+    const [queryName,setQueryName]=useState(["OPPS!!!!!!!!!! NO QUERY TO RUN"]);
     const [queryRole,setQueryRole]=useState([]); 
             
     
@@ -70,6 +70,43 @@ const Supply = (props) => {
           }).showToast();
         } 
       }
+      
+      const handleRolequery=()=>{
+        props.record.map((i)=>
+            setQueryRole  (prevArray => [...prevArray, i.contactName])
+          )
+          setQueryName([])
+          Toastify({
+            text: "RUN SUCCESSUFLLY",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "linear-gradient(to right, #008080,#00b295)",
+            }
+          }).showToast();
+      }
+
+      const handleNamequery=()=>{
+        setQueryName([])
+        props.record.map((i)=>
+            setQueryName(prevArray => [...prevArray, i.companyName])
+          )
+          setQueryRole([])
+          Toastify({
+            text: "RUN SUCCESSUFLLY",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "linear-gradient(to right, #008080,#00b295)",
+            }
+          }).showToast();
+      }
      
     return ( 
         <div className='col-12 mt-5'>
@@ -127,7 +164,10 @@ const Supply = (props) => {
                       />
                   
                     <button className='btn btn-danger col-5' type="submit" >RUN</button>
-                  </form>                
+                  </form>   
+                  <p className='col-12 mt-3'style={{color:'grey'}}>or select default queries from below</p>
+                  <button className='btn btn-info col-10 ' onClick={handleNamequery} >SELECT COMPANY_NAME </button>
+                  <button className='btn btn-info col-10 mt-2' onClick={handleRolequery} >SELECT CONTACT </button>            
                 </div>
 
 {/* QUERY TABLE SECTION */}
