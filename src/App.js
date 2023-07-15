@@ -13,6 +13,7 @@ import Supply from './components/supply';
 function App() {
   
 //hooks
+// hello
   const [record,setRecord]=useState([]);
   const [recordcategory,setRecordcategory]=useState([])
   const [territories,setTerritories]=useState([]);
