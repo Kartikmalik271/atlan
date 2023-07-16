@@ -20,6 +20,7 @@ function App() {
   const [suppliers,setSuppliers]=useState([]);
 
 // to declaring with initial values when component mounts
+// again hello
   useEffect(()=>{
     csv(datacsv).then(record=>{
       setRecord(record);
